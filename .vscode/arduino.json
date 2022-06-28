@@ -1,0 +1,8 @@
+{
+    "board": "arduino:avr:mega",
+    "programmer": "arduino:arduinoisp",
+    "C_Cpp.intelliSenseEngine": "Tag Parser",
+    "sketch": "SecoMatico/SecoMatico.ino",
+    "port": "/dev/ttyUSB0",
+    "configuration": "cpu=atmega2560"
+}
