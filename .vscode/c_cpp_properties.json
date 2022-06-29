@@ -7,6 +7,7 @@
             "compilerArgs": [],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
+                "${workspaceFolder}/**",
                 "/home/marcelo/Arduino/Repository/ProjetosArduino/HigienizadorDeCalcados",
                 "/home/marcelo/Documentos/arduino-1.8.9/tools/**",
                 "/home/marcelo/Documentos/arduino-1.8.9/hardware/arduino/avr/**",
@@ -20,28 +21,19 @@
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/arduino/avr/**",
                 "/home/marcelo/Documentos/arduino-1.8.19/tools/**",
                 "/home/marcelo/Documentos/arduino-1.8.9/hardware/tools/avr/avr/include/avr",
-                "/home/marcelo/Arduino/libraries/TimerInterrupt/**"
+                "/home/marcelo/Arduino/libraries/TimerInterrupt/**",
+                "/home/marcelo/Arduino/libraries/DallasTemperature/**",
+                "/home/marcelo/Arduino/libraries/OneWire/**"
             ],
             "forcedInclude": [
                 "/home/marcelo/Documentos/arduino-1.8.9/hardware/arduino/avr/cores/arduino/Arduino.h",
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/arduino/avr/cores/arduino/Arduino.h"
             ],
-            "cStandard": "gnu18",
+            "cStandard": "gnu17",
             "cppStandard": "gnu++14",
-            "defines": []
-        },
-        {
-            "name": "Linux",
-            "compilerPath": "/usr/bin/gcc",
-            "compilerArgs": [],
-            "intelliSenseMode": "gcc-x64",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "forcedInclude": [],
-            "cStandard": "gnu18",
-            "cppStandard": "gnu++14",
-            "defines": []
+            "defines": [
+                "USBCON"
+            ]
         },
         {
             "name": "Arduino",
@@ -59,7 +51,8 @@
             "includePath": [
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/arduino/avr/cores/arduino",
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/arduino/avr/variants/mega",
-                "/home/marcelo/Arduino/libraries/TimerInterrupt/src",
+                "/home/marcelo/Arduino/libraries/OneWire",
+                "/home/marcelo/Arduino/libraries/DallasTemperature",
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/tools/avr/lib/gcc/avr/7.3.0/include",
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/tools/avr/lib/gcc/avr/7.3.0/include-fixed",
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/tools/avr/avr/include"
