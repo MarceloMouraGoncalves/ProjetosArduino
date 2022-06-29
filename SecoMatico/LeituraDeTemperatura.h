@@ -9,7 +9,7 @@ OneWire oneWire(PINO_SENSOR_TEMP);
 DallasTemperature sensors(&oneWire);
 DeviceAddress sensorTempAddress;
 
-void IniciarLeituraDeTemperatura()
+void InicializarLeituraDeTemperatura()
 {
     sensors.begin();    
     sensors.getAddress(sensorTempAddress, 0);

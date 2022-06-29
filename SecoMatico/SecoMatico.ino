@@ -1,18 +1,18 @@
 #include "LeituraDeTemperatura.h"
 #include "ControladorDeEstados.h"
+#include "ControladorDePosicao.h"
 
 /*
   Controle de Tempratura com Fluxo De Ar em um Secador de Café a Lenha
 */
-
-const long LOOP_INTERVALO_MS = 100;
 
 // the setup function runs once when you press reset or power the board
 void setup() 
 {  
   Serial.begin(115200);
 
-  IniciarLeituraDeTemperatura();
+  InicializarLeituraDeTemperatura();
+  InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_AQUISICAO);
 }
 
 unsigned int tempoAnteriorMs = 0;        
@@ -28,6 +28,8 @@ void loop()
     return;
   }
   
+  tempoAnteriorMs = tempoAtualMs;
+
   switch (DefinirEstadoAtual())
   {
     case ESTADO_AQUISICAO:
@@ -41,8 +43,6 @@ void loop()
     default:
       break;
   }
-  
-  tempoAnteriorMs = millis();
 }
 
 void Aquisicao()
@@ -51,9 +51,11 @@ void Aquisicao()
 
   float temperatura = LerTemperaturaC();
   Serial.println(temperatura);
+
+  ControlarAngulo();
 }
 
 void Controle()
 {
-  Serial.println("Controle");
+  Serial.println("Controle");  
 }

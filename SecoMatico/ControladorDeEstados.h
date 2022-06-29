@@ -1,9 +1,4 @@
-const int LOOP_AQUISICAO = 10;
-const int LOOP_CONTROLE = 600;
-
-const int ESTADO_INDEFINIDO = -1;
-const int ESTADO_AQUISICAO = 1;
-const int ESTADO_CONTROLE = 2;
+#include "ConstantesDeControle.h"
 
 int contadorLoopAquisicao = 0;
 int contadorLoopControle = 0;
