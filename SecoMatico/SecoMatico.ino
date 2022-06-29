@@ -1,42 +1,59 @@
-#define USE_TIMER_2 true
-#define TIMER_INTERVAL_MS 500
-
-#include "TimerInterrupt.h"
+#include "LeituraDeTemperatura.h"
+#include "ControladorDeEstados.h"
 
 /*
   Controle de Tempratura com Fluxo De Ar em um Secador de Café a Lenha
 */
 
-bool flagLed = false;
-
-void TimerHandler(void)
-{
-  if(flagLed)
-  {
-    digitalWrite(LED_BUILTIN, HIGH);
-    flagLed = false;
-  }
-  else
-  {
-    digitalWrite(LED_BUILTIN, LOW);
-    flagLed = true;
-  }
-}
+const long LOOP_INTERVALO_MS = 100;
 
 // the setup function runs once when you press reset or power the board
 void setup() 
-{
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
+{  
+  Serial.begin(115200);
 
-ITimer2.init();
-
-if (ITimer2.attachInterruptInterval(TIMER_INTERVAL_MS, TimerHandler));
-
+  IniciarLeituraDeTemperatura();
 }
+
+unsigned int tempoAnteriorMs = 0;        
+unsigned int tempoAtualMs = 0;
 
 // the loop function runs over and over again forever
 void loop() 
 {
+  tempoAtualMs = millis();
 
+  if (tempoAtualMs - tempoAnteriorMs < LOOP_INTERVALO_MS) 
+  {
+    return;
+  }
+  
+  switch (DefinirEstadoAtual())
+  {
+    case ESTADO_AQUISICAO:
+      Aquisicao();
+      break;
+    
+    case ESTADO_CONTROLE:
+      Controle();
+      break;
+
+    default:
+      break;
+  }
+  
+  tempoAnteriorMs = millis();
+}
+
+void Aquisicao()
+{
+  Serial.print("Aquisicao Temperatura = ");
+
+  float temperatura = LerTemperaturaC();
+  Serial.println(temperatura);
+}
+
+void Controle()
+{
+  Serial.println("Controle");
 }
