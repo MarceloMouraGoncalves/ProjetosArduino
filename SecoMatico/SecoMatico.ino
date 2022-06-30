@@ -1,6 +1,7 @@
 #include "LeitorDeTemperatura.h"
 #include "ControladorDeEstados.h"
 #include "ControladorDePosicao.h"
+#include "ControladorDeTemperatura.h"
 
 /*
   Controle de Tempratura com Fluxo De Ar em um Secador de Café a Lenha
@@ -13,6 +14,7 @@ void setup()
 
   InicializarLeituraDeTemperatura();
   InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO);
+  InicializarControleDeTemparatura(LOOP_INTERVALO_MS * LOOP_CONTROLE_TEMPERATURA);
 }
 
 unsigned int tempoAnteriorMs = 0;        
@@ -57,5 +59,10 @@ void ControleDePosicao()
 
 void ControleDeTemparatura()
 {
+  float temperaturaAtual = LerTemperaturaC();
+  float temperaturaDesejada = 40;
+
+  float posicao = CalcularControle(temperaturaAtual, temperaturaDesejada);
+
   Serial.println("Controle");  
 }

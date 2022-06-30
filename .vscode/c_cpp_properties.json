@@ -23,7 +23,8 @@
                 "/home/marcelo/Documentos/arduino-1.8.9/hardware/tools/avr/avr/include/avr",
                 "/home/marcelo/Arduino/libraries/TimerInterrupt/**",
                 "/home/marcelo/Arduino/libraries/DallasTemperature/**",
-                "/home/marcelo/Arduino/libraries/OneWire/**"
+                "/home/marcelo/Arduino/libraries/OneWire/**",
+                "/home/marcelo/Arduino/libraries/PID/**"
             ],
             "forcedInclude": [
                 "/home/marcelo/Documentos/arduino-1.8.9/hardware/arduino/avr/cores/arduino/Arduino.h",
