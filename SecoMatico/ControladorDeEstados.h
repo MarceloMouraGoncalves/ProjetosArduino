@@ -3,10 +3,15 @@
 int contadorLoopControlePosicao = 0;
 int contadorLoopControleTemperatura = 0;
 
-int DefinirEstadoAtual()
+int DefinirEstadoAtual(float temperatura)
 {
   contadorLoopControlePosicao++;
   contadorLoopControleTemperatura++;
+
+  if(temperatura >= TEMPERATURA_MAX)
+  {
+    return ESTADO_EMERGENCIA_TEMPERATURA;
+  }
 
   if(contadorLoopControlePosicao >= LOOP_CONTROLE_POSICAO)
   {

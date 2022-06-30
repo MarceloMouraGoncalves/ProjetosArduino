@@ -1,4 +1,4 @@
-const float CONSTANTE_P = 0.5;
+const float CONSTANTE_P = 1;
 const float CONSTANTE_I = 0.25;
 const float CONSTANTE_D = 0.25;
 

@@ -105,6 +105,17 @@ void Motor1InicializarPosicaoMin()
     Motor1RotacaoNegativa();
 }
 
+void Motor1ForcarPosicaoMax()
+{
+    if(Motor1PosicaoMax())
+    {
+        Motor1RotacaoParada();
+        return;
+    }
+
+    Motor1RotacaoPositiva();
+}
+
 void Motor2RotacaoParada()
 {
     digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_PARADO);
@@ -154,6 +165,17 @@ void Motor2InicializarPosicaoMin()
     Motor2RotacaoNegativa();
 }
 
+void Motor2ForcarPosicaoMax()
+{
+    if(Motor2PosicaoMax())
+    {
+        Motor2RotacaoParada();
+        return;
+    }
+
+    Motor2RotacaoPositiva();
+}
+
 void RotacaoPositiva()
 {
     Motor1RotacaoPositiva();
@@ -199,6 +221,12 @@ void InicializarPosicaoMin()
 {
     Motor1InicializarPosicaoMin();
     Motor2InicializarPosicaoMin();
+}
+
+void ForcarPosicaoMax()
+{
+    Motor1ForcarPosicaoMax();
+    Motor2ForcarPosicaoMax();
 }
 
 void ControlarPosicao()

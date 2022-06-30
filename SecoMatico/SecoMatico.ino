@@ -20,6 +20,8 @@ void setup()
 unsigned int tempoAnteriorMs = 0;        
 unsigned int tempoAtualMs = 0;
 
+float Temperatura = 0;
+
 // the loop function runs over and over again forever
 void loop() 
 {
@@ -32,8 +34,12 @@ void loop()
   
   tempoAnteriorMs = tempoAtualMs;
 
-  switch (DefinirEstadoAtual())
+  switch (DefinirEstadoAtual(Temperatura))
   {
+    case ESTADO_EMERGENCIA_TEMPERATURA:
+      EmergenciaTemperaturaMax();
+      break;
+
     case ESTADO_CONTROLE_POSICAO:
       ControleDePosicao();
       break;
@@ -47,22 +53,29 @@ void loop()
   }
 }
 
+void EmergenciaTemperaturaMax()
+{
+  ForcarPosicaoMax();
+  Temperatura = LerTemperaturaC();
+}
+
 void ControleDePosicao()
 {
   Serial.print("Aquisicao Temperatura = ");
 
-  float temperatura = LerTemperaturaC();
-  Serial.println(temperatura);
+  Temperatura = LerTemperaturaC();
+  Serial.println(Temperatura);
 
   ControlarPosicao();
 }
 
 void ControleDeTemparatura()
 {
+  Serial.println("Controle"); 
+
   float temperaturaAtual = LerTemperaturaC();
   float temperaturaDesejada = 40;
 
   float posicao = CalcularControle(temperaturaAtual, temperaturaDesejada);
-  AjustarAlteracaoDeAngulo(posicao);
-  Serial.println("Controle");  
+  AjustarAlteracaoDeAngulo(posicao);   
 }
