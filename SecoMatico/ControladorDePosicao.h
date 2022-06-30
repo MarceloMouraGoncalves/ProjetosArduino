@@ -3,13 +3,14 @@
 #define PINO_MOTOR2_ROT_POS 41
 #define PINO_MOTOR2_ROT_NEG 43
 
-#define PINO_MOTOR1_FECHADO 23
-#define PINO_MOTOR1_ABERTO 25
-#define PINO_MOTOR2_FECHADO 27
-#define PINO_MOTOR2_ABERTO 29
+#define PINO_MOTOR1_POSICAO_MIN 23
+#define PINO_MOTOR1_POSICAO_MAX 25
+#define PINO_MOTOR2_POSICAO_MIN 27
+#define PINO_MOTOR2_POSICAO_MAX 29
 
 #define MOTOR_ATIVADO LOW
 #define MOTOR_PARADO HIGH
+#define MOTOR_POSICAO LOW 
 
 const long TEMPO_TOTAL_MS = 48000;
 const float ANGULO_TOTAL_RAD = PI / 2;
@@ -30,31 +31,107 @@ void AjustarAlteracaoDeAngulo(float alteracaoDeAngulo)
     AlteracaoDeAngulo = alteracaoDeAngulo;
 }
 
+bool MotorPosicao(int pinoMotor)
+{
+    return digitalRead(pinoMotor) == MOTOR_POSICAO;
+}
+
+bool Motor1PosicaoMin()
+{
+    return MotorPosicao(PINO_MOTOR1_POSICAO_MIN);
+}
+
+bool Motor1PosicaoMax()
+{
+    return MotorPosicao(PINO_MOTOR1_POSICAO_MAX);
+}
+
+bool Motor2PosicaoMin()
+{
+    return MotorPosicao(PINO_MOTOR2_POSICAO_MIN);
+}
+
+bool Motor2PosicaoMax()
+{
+    return MotorPosicao(PINO_MOTOR2_POSICAO_MAX);
+}
+
+void Motor1RotacaoParada()
+{
+    digitalWrite(PINO_MOTOR1_ROT_POS, MOTOR_PARADO);
+    digitalWrite(PINO_MOTOR1_ROT_NEG, MOTOR_PARADO);
+}
+
+void Motor1RotacaoPositiva()
+{
+    if(Motor1PosicaoMax())
+    {
+        Motor1RotacaoParada();
+        return;
+    }
+
+    digitalWrite(PINO_MOTOR1_ROT_POS, MOTOR_ATIVADO);    
+    digitalWrite(PINO_MOTOR1_ROT_NEG, MOTOR_PARADO);
+}
+
+void Motor1RotacaoNegativa()
+{
+    if(Motor1PosicaoMin())
+    {
+        Motor1RotacaoParada();
+        return;
+    }
+
+    digitalWrite(PINO_MOTOR1_ROT_POS, MOTOR_PARADO);    
+    digitalWrite(PINO_MOTOR1_ROT_NEG, MOTOR_ATIVADO);
+}
+
+void Motor2RotacaoParada()
+{
+    digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_PARADO);
+    digitalWrite(PINO_MOTOR2_ROT_NEG, MOTOR_PARADO);
+}
+
+void Motor2RotacaoPositiva()
+{
+    if(Motor2PosicaoMax())
+    {
+        Motor2RotacaoParada();
+        return;
+    }
+
+    digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_ATIVADO);
+    digitalWrite(PINO_MOTOR2_ROT_NEG, MOTOR_PARADO);
+}
+
+void Motor2RotacaoNegativa()
+{
+    if(Motor2PosicaoMin())
+    {
+        Motor2RotacaoParada();
+        return;
+    }
+
+    digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_PARADO);
+    digitalWrite(PINO_MOTOR2_ROT_NEG, MOTOR_ATIVADO);
+}
+
 void RotacaoPositiva()
 {
-    digitalWrite(PINO_MOTOR1_ROT_POS, MOTOR_ATIVADO);
-    digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_ATIVADO);
-
-    digitalWrite(PINO_MOTOR1_ROT_NEG, MOTOR_PARADO);
-    digitalWrite(PINO_MOTOR2_ROT_NEG, MOTOR_PARADO);
+    Motor1RotacaoPositiva();
+    Motor2RotacaoPositiva();
 }
 
 void RotacaoNegativa()
 {
-    digitalWrite(PINO_MOTOR1_ROT_POS, MOTOR_PARADO);
-    digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_PARADO);
-
-    digitalWrite(PINO_MOTOR1_ROT_NEG, MOTOR_ATIVADO);
-    digitalWrite(PINO_MOTOR2_ROT_NEG, MOTOR_ATIVADO);
+    Motor1RotacaoNegativa();
+    Motor2RotacaoNegativa();
 }
 
 void PararRotacao()
 {
-    digitalWrite(PINO_MOTOR1_ROT_POS, MOTOR_PARADO);
-    digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_PARADO);
-
-    digitalWrite(PINO_MOTOR1_ROT_NEG, MOTOR_PARADO);
-    digitalWrite(PINO_MOTOR2_ROT_NEG, MOTOR_PARADO);
+    Motor1RotacaoParada();
+    Motor2RotacaoParada();
 }
 
 void InicializarControleDePosicao(int intervaloDeExecucaoMs)
@@ -66,10 +143,10 @@ void InicializarControleDePosicao(int intervaloDeExecucaoMs)
     pinMode(PINO_MOTOR2_ROT_POS, OUTPUT);
     pinMode(PINO_MOTOR2_ROT_NEG, OUTPUT);
 
-    pinMode(PINO_MOTOR1_FECHADO, INPUT);
-    pinMode(PINO_MOTOR1_ABERTO, INPUT);
-    pinMode(PINO_MOTOR2_FECHADO, INPUT);
-    pinMode(PINO_MOTOR2_ABERTO, INPUT);
+    pinMode(PINO_MOTOR1_POSICAO_MAX, INPUT);
+    pinMode(PINO_MOTOR1_POSICAO_MIN, INPUT);
+    pinMode(PINO_MOTOR2_POSICAO_MIN, INPUT);
+    pinMode(PINO_MOTOR2_POSICAO_MAX, INPUT);
 
     PararRotacao();
 }
