@@ -1,23 +1,23 @@
 #include "ConstantesDeControle.h"
 
-int contadorLoopAquisicao = 0;
-int contadorLoopControle = 0;
+int contadorLoopControlePosicao = 0;
+int contadorLoopControleTemperatura = 0;
 
 int DefinirEstadoAtual()
 {
-  contadorLoopAquisicao++;
-  contadorLoopControle++;
+  contadorLoopControlePosicao++;
+  contadorLoopControleTemperatura++;
 
-  if(contadorLoopAquisicao >= LOOP_AQUISICAO)
+  if(contadorLoopControlePosicao >= LOOP_CONTROLE_POSICAO)
   {
-    contadorLoopAquisicao = 0;
-    return ESTADO_AQUISICAO;
+    contadorLoopControlePosicao = 0;
+    return ESTADO_CONTROLE_POSICAO;
   }
 
-  if(contadorLoopControle >= LOOP_CONTROLE)
+  if(contadorLoopControleTemperatura >= LOOP_CONTROLE_TEMPERATURA)
   {
-    contadorLoopControle = 0;
-    return ESTADO_CONTROLE;
+    contadorLoopControleTemperatura = 0;
+    return ESTADO_CONTROLE_TEMPERATURA;
   }
 
   return ESTADO_INDEFINIDO;

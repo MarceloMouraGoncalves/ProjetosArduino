@@ -12,7 +12,7 @@ void setup()
   Serial.begin(115200);
 
   InicializarLeituraDeTemperatura();
-  InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_AQUISICAO);
+  InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO);
 }
 
 unsigned int tempoAnteriorMs = 0;        
@@ -32,12 +32,12 @@ void loop()
 
   switch (DefinirEstadoAtual())
   {
-    case ESTADO_AQUISICAO:
-      Aquisicao();
+    case ESTADO_CONTROLE_POSICAO:
+      ControleDePosicao();
       break;
     
-    case ESTADO_CONTROLE:
-      Controle();
+    case ESTADO_CONTROLE_TEMPERATURA:
+      ControleDeTemparatura();
       break;
 
     default:
@@ -45,17 +45,17 @@ void loop()
   }
 }
 
-void Aquisicao()
+void ControleDePosicao()
 {
   Serial.print("Aquisicao Temperatura = ");
 
   float temperatura = LerTemperaturaC();
   Serial.println(temperatura);
 
-  ControlarAngulo();
+  ControlarPosicao();
 }
 
-void Controle()
+void ControleDeTemparatura()
 {
   Serial.println("Controle");  
 }

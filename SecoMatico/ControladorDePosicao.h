@@ -157,7 +157,7 @@ void ImprimirAngulo()
     Serial.println(AlteracaoDeAngulo);
 }
 
-void ControlarAngulo()
+void ControlarPosicao()
 {
     if(AlteracaoDeAngulo > ANGULO_MIN_RAD)
     {
