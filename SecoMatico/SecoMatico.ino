@@ -1,4 +1,4 @@
-#include "LeituraDeTemperatura.h"
+#include "LeitorDeTemperatura.h"
 #include "ControladorDeEstados.h"
 #include "ControladorDePosicao.h"
 
