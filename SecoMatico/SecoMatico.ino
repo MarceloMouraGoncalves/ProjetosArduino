@@ -2,6 +2,7 @@
 #include "ControladorDeEstados.h"
 #include "ControladorDePosicao.h"
 #include "ControladorDeTemperatura.h"
+#include "ControladorDeMenus.h"
 
 /*
   Controle de Tempratura com Fluxo De Ar em um Secador de Café a Lenha
@@ -15,6 +16,7 @@ void setup()
   InicializarLeituraDeTemperatura();
   InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO);
   InicializarControleDeTemparatura(LOOP_INTERVALO_MS * LOOP_CONTROLE_TEMPERATURA);
+  InicializarControleDeMenu();
 }
 
 unsigned int tempoAnteriorMs = 0;        
@@ -33,6 +35,8 @@ void loop()
   }
   
   tempoAnteriorMs = tempoAtualMs;
+
+  MostrarMenu();
 
   switch (DefinirEstadoAtual(Temperatura))
   {

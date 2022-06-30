@@ -1,7 +1,7 @@
 
 static PCD8544 lcd;
 
-struct LinhasDisplay linhasDisplayMemoria;
+struct LinhasDisplay LinhasDisplayMemoria;
 
 
 void MostrarDisplay(struct LinhasDisplay linhasDisplay)
@@ -9,7 +9,7 @@ void MostrarDisplay(struct LinhasDisplay linhasDisplay)
 
   for (int i = 0; i < 6; i++)
   {
-    if (linhasDisplay.Linhas[i] != linhasDisplayMemoria.Linhas[i])
+    if (linhasDisplay.Linhas[i] != LinhasDisplayMemoria.Linhas[i])
     {
       lcd.setCursor(0, i);
       lcd.print("              ");
@@ -18,7 +18,7 @@ void MostrarDisplay(struct LinhasDisplay linhasDisplay)
     }
   }
 
-  linhasDisplayMemoria = linhasDisplay;
+  LinhasDisplayMemoria = linhasDisplay;
 }
 
 
