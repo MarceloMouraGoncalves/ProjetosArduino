@@ -63,6 +63,6 @@ void ControleDeTemparatura()
   float temperaturaDesejada = 40;
 
   float posicao = CalcularControle(temperaturaAtual, temperaturaDesejada);
-
+  AjustarAlteracaoDeAngulo(posicao);
   Serial.println("Controle");  
 }

@@ -86,6 +86,25 @@ void Motor1RotacaoNegativa()
     digitalWrite(PINO_MOTOR1_ROT_NEG, MOTOR_ATIVADO);
 }
 
+bool Motor1Inicializacao = false;
+
+void Motor1InicializarPosicaoMin()
+{
+    if(Motor1Inicializacao)
+    {
+        return;
+    }
+
+    if(Motor1PosicaoMin())
+    {        
+        Motor1RotacaoParada();
+        Motor1Inicializacao = true;
+        return;
+    }
+
+    Motor1RotacaoNegativa();
+}
+
 void Motor2RotacaoParada()
 {
     digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_PARADO);
@@ -114,6 +133,25 @@ void Motor2RotacaoNegativa()
 
     digitalWrite(PINO_MOTOR2_ROT_POS, MOTOR_PARADO);
     digitalWrite(PINO_MOTOR2_ROT_NEG, MOTOR_ATIVADO);
+}
+
+bool Motor2Inicializacao = false;
+
+void Motor2InicializarPosicaoMin()
+{
+    if(Motor2Inicializacao)
+    {
+        return;
+    }
+
+    if(Motor2PosicaoMin())
+    {
+        Motor2RotacaoParada();
+        Motor2Inicializacao = true;
+        return;
+    }
+
+    Motor2RotacaoNegativa();
 }
 
 void RotacaoPositiva()
@@ -157,8 +195,20 @@ void ImprimirAngulo()
     Serial.println(AlteracaoDeAngulo);
 }
 
+void InicializarPosicaoMin()
+{
+    Motor1InicializarPosicaoMin();
+    Motor2InicializarPosicaoMin();
+}
+
 void ControlarPosicao()
 {
+    if(!Motor1Inicializacao || !Motor2Inicializacao)
+    {
+        InicializarPosicaoMin();
+        return;
+    }
+
     if(AlteracaoDeAngulo > ANGULO_MIN_RAD)
     {
         RotacaoPositiva();
