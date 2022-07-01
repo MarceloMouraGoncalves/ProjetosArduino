@@ -1,24 +1,10 @@
 #include "ControladorDeDisplay.h"
-
-struct DadosMenu
-{
-  char Titulo[14];
-  byte Posicao;
-  bool Selecionado;
-  bool Modificar;
-  bool MenuDeConfiguracao;
-  char NomeDados[4][14];
-  int Dados[4];
-  int DadosIncremento[4];
-  int DadosMaximo[4];
-  bool ModificarDados[4];
-};
+#include "DadosDeMenus.h"
 
 struct LinhasDisplay linhasDisplay;
 int menuSelecionado = 0;
-struct DadosMenu dadosMenuSelecao, dadosMenuSupervisao, dadosMenuDeEntrada;
 
-String  SelecionarItem(String item, int valor, bool selecionado, bool modificar, bool menuDeConfiguracao)
+String  SelecionarItem(String item, float valor, bool selecionado, bool modificar, bool menuDeConfiguracao)
 {
   if (item == "")
     return "";
@@ -68,15 +54,6 @@ void GerarMenu(struct DadosMenu dados)
   
 }
 
-void SelecionarMenu(struct DadosMenu & dados)
-{
-  menuSelecionado = menuSelecionado + 1;
-
-  if (menuSelecionado > 2)
-    menuSelecionado = 0;
-
-}
-
 void MostrarMenu()
 {
     MostrarDisplay(linhasDisplay);
@@ -84,22 +61,14 @@ void MostrarMenu()
 
 void MostrarMenuInicial()
 {
-  SelecionarMenu(dadosMenuSelecao);
-  GerarMenu(dadosMenuSelecao);
-  MostrarDisplay(linhasDisplay);
+    GerarMenu(DadosMenuSupervisao);
+    MostrarMenu();
 }
+
 
 void InicializarControleDeMenu()
 {
     IniciarDisplay();
-
-    strcpy(dadosMenuSelecao.Titulo, "    Selecao");
-    dadosMenuSelecao.Posicao = 1;
-    strcpy(dadosMenuSelecao.NomeDados[0], "Borra.");
-    strcpy(dadosMenuSelecao.NomeDados[1], "Couro ");
-    strcpy(dadosMenuSelecao.NomeDados[2], "Tecido");
-    strcpy(dadosMenuSelecao.NomeDados[3], "");
-    dadosMenuSelecao.MenuDeConfiguracao = true;
-
+    InicializarDadosDeMenus();
     MostrarMenuInicial();
 }

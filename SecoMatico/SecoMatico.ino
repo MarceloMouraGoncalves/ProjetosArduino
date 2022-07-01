@@ -8,6 +8,14 @@
   Controle de Tempratura com Fluxo De Ar em um Secador de Café a Lenha
 */
 
+unsigned int tempoAnteriorMs = 0;        
+unsigned int tempoAtualMs = 0;
+
+float Temperatura = 0;
+float TemperaturaDesejada = 0;
+float ControleDeAngulo = 0;
+unsigned long int Tempo = 0;
+
 // the setup function runs once when you press reset or power the board
 void setup() 
 {  
@@ -18,11 +26,6 @@ void setup()
   InicializarControleDeTemparatura(LOOP_INTERVALO_MS * LOOP_CONTROLE_TEMPERATURA);
   InicializarControleDeMenu();
 }
-
-unsigned int tempoAnteriorMs = 0;        
-unsigned int tempoAtualMs = 0;
-
-float Temperatura = 0;
 
 // the loop function runs over and over again forever
 void loop() 
@@ -35,8 +38,9 @@ void loop()
   }
   
   tempoAnteriorMs = tempoAtualMs;
+  Tempo += tempoAtualMs;
 
-  MostrarMenu();
+  MostrarMenuInicial();
 
   switch (DefinirEstadoAtual(Temperatura))
   {
@@ -70,16 +74,28 @@ void ControleDePosicao()
   Temperatura = LerTemperaturaC();
   Serial.println(Temperatura);
 
+  TemperaturaDesejada = 40;
+
   ControlarPosicao();
+  AtualizarDados();
 }
 
 void ControleDeTemparatura()
 {
   Serial.println("Controle"); 
 
-  float temperaturaAtual = LerTemperaturaC();
-  float temperaturaDesejada = 40;
+  Temperatura = LerTemperaturaC();
+  
+  ControleDeAngulo = CalcularControle(Temperatura, TemperaturaDesejada);
+  AjustarAlteracaoDeAngulo(ControleDeAngulo);
 
-  float posicao = CalcularControle(temperaturaAtual, temperaturaDesejada);
-  AjustarAlteracaoDeAngulo(posicao);   
+  AtualizarDados();   
+}
+
+void AtualizarDados()
+{
+  DadosMenuSupervisao.Dados[0] = Temperatura;
+  DadosMenuSupervisao.Dados[1] = TemperaturaDesejada;
+  DadosMenuSupervisao.Dados[2] = AlteracaoDeAngulo;
+  DadosMenuSupervisao.Dados[3] = Tempo;
 }
