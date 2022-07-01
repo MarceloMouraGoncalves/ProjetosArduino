@@ -94,8 +94,7 @@ void ControleDeTemparatura()
 
 void AtualizarDados()
 {
-  DadosMenuSupervisao.Dados[0] = Temperatura;
-  DadosMenuSupervisao.Dados[1] = TemperaturaDesejada;
-  DadosMenuSupervisao.Dados[2] = AlteracaoDeAngulo;
-  DadosMenuSupervisao.Dados[3] = Tempo;
+  DadosMenuSupervisao.Valores[0] = Temperatura;
+  DadosMenuSupervisao.Valores[1] = TemperaturaDesejada;
+  DadosMenuSupervisao.Valores[2] = AlteracaoDeAngulo;
 }

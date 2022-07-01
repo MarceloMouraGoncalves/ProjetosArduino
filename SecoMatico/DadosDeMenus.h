@@ -7,7 +7,8 @@ struct DadosMenu
   bool Modificar;
   bool MenuDeConfiguracao;
   char NomeDados[4][14];
-  float Dados[4];
+  bool Ocultar[4];
+  float Valores[4];
   float DadosIncremento[4];
   float DadosMaximo[4];
   bool ModificarDados[4];
@@ -20,11 +21,12 @@ void InicializarDadosMenuSupervisao()
     strcpy(DadosMenuSupervisao.Titulo, "  Supervisor");
     DadosMenuSupervisao.Posicao = 0;
     
-    strcpy(DadosMenuSupervisao.NomeDados[0], "Temp.C");
-    
+    strcpy(DadosMenuSupervisao.NomeDados[0], "Temp.C");    
     strcpy(DadosMenuSupervisao.NomeDados[1], "SetP.C");
     strcpy(DadosMenuSupervisao.NomeDados[2], "Ctrle");
-    strcpy(DadosMenuSupervisao.NomeDados[3], "Tempo");
+    strcpy(DadosMenuSupervisao.NomeDados[3], "");
+    DadosMenuSupervisao.Ocultar[3] = true;
+
     DadosMenuSupervisao.MenuDeConfiguracao = true;
 }
 

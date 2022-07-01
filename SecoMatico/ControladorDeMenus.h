@@ -34,12 +34,17 @@ void GerarMenu(struct DadosMenu dados)
   
     for (int i = 0; i < 4; i++)
     {
-      tempString = SelecionarItem(dados.NomeDados[i], dados.Dados[i],
-                                  dados.Posicao == i + 1, dados.Modificar, dados.MenuDeConfiguracao);
+        if(dados.Ocultar[i])
+        {
+            break;
+        }
+
+        tempString = SelecionarItem(dados.NomeDados[i], dados.Valores[i],
+            dados.Posicao == i + 1, dados.Modificar, dados.MenuDeConfiguracao);
   
-      tempString.toCharArray(tempChar, 14);
+        tempString.toCharArray(tempChar, 14);
   
-      strcpy(linhasDisplay.Linhas[i + 2], tempChar);
+        strcpy(linhasDisplay.Linhas[i + 2], tempChar);
     }
 
     return;
@@ -53,6 +58,7 @@ void GerarMenu(struct DadosMenu dados)
   strcpy(linhasDisplay.Linhas[5], dados.NomeDados[3]);
   
 }
+
 
 void MostrarMenu()
 {
