@@ -44,15 +44,15 @@ void loop()
 
   switch (DefinirEstadoAtual(Temperatura))
   {
-    case ESTADO_EMERGENCIA_TEMPERATURA:
+    case EstadoEmergenciaDeTemperatura:
       EmergenciaTemperaturaMax();
       break;
 
-    case ESTADO_CONTROLE_POSICAO:
+    case EstadoControleDePosicao:
       ControleDePosicao();
       break;
     
-    case ESTADO_CONTROLE_TEMPERATURA:
+    case EstadoControleDeTemparatura:
       ControleDeTemparatura();
       break;
 

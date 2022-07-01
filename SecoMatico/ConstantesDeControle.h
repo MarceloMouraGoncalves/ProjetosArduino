@@ -5,7 +5,12 @@ const long LOOP_CONTROLE_TEMPERATURA = 600;
 
 const float TEMPERATURA_MAX = 65;
 
-const int ESTADO_INDEFINIDO = -1;
-const int ESTADO_CONTROLE_POSICAO = 1;
-const int ESTADO_CONTROLE_TEMPERATURA = 2;
-const int ESTADO_EMERGENCIA_TEMPERATURA = 3;
+enum ESTADOS_DE_CONTROLE 
+{
+    EstadoIndefinido,
+    EstadoControleDePosicao,
+    EstadoControleDeTemparatura,
+    EstadoEmergenciaDeTemperatura    
+};
+
+  

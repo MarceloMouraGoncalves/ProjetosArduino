@@ -10,20 +10,20 @@ int DefinirEstadoAtual(float temperatura)
 
   if(temperatura >= TEMPERATURA_MAX)
   {
-    return ESTADO_EMERGENCIA_TEMPERATURA;
+    return EstadoEmergenciaDeTemperatura;
   }
 
   if(contadorLoopControlePosicao >= LOOP_CONTROLE_POSICAO)
   {
     contadorLoopControlePosicao = 0;
-    return ESTADO_CONTROLE_POSICAO;
+    return EstadoControleDePosicao;
   }
 
   if(contadorLoopControleTemperatura >= LOOP_CONTROLE_TEMPERATURA)
   {
     contadorLoopControleTemperatura = 0;
-    return ESTADO_CONTROLE_TEMPERATURA;
+    return EstadoControleDeTemparatura;
   }
 
-  return ESTADO_INDEFINIDO;
+  return EstadoIndefinido;
 }
