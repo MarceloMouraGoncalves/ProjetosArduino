@@ -22,7 +22,7 @@ struct DadosMenu
   bool ModificarDados[4];
 };
 
-struct DadosMenu DadosMenuSupervisao, DadosMenuTemperatura;
+struct DadosMenu DadosMenuSupervisao, DadosMenuTemperatura, DadosMenuControlePid;
 
 void InicializarDadosMenuSupervisao()
 {
@@ -52,8 +52,22 @@ void InicializarDadosMenuTemperatura()
     DadosMenuTemperatura.Tipo = MenuDeConfiguracao;
 }
 
+void InicializarDadosMenuControlePid()
+{
+  strcpy(DadosMenuControlePid.Titulo, " Controle PID");
+  DadosMenuControlePid.Posicao = 2;
+    
+  strcpy(DadosMenuControlePid.NomeDados[0], "Cons. P");
+  strcpy(DadosMenuControlePid.NomeDados[1], "Cons. I");    
+  strcpy(DadosMenuControlePid.NomeDados[2], "Cons. D");
+  strcpy(DadosMenuControlePid.NomeDados[3], "T.M. C");
+    
+  DadosMenuControlePid.Tipo = MenuDeConfiguracao;
+}
+
 void InicializarDadosDeMenus()
 {    
     InicializarDadosMenuSupervisao();
     InicializarDadosMenuTemperatura();
+    InicializarDadosMenuControlePid();
 }

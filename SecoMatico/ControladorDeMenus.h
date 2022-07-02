@@ -2,7 +2,7 @@
 #include "DadosDeMenus.h"
 #include "ControladorDeBotoes.h"
 
-const int MENUS_TOTAL = 2;
+const int MENUS_TOTAL = 3;
 
 struct LinhasDisplay linhasDisplay;
 int MenuSelecionado = 0;
@@ -100,6 +100,11 @@ void GerarMenuSelecionado()
   if(MenuSelecionado == DadosMenuTemperatura.Posicao)
   {
     GerarMenu(DadosMenuTemperatura);
+  }
+
+  if(MenuSelecionado == DadosMenuControlePid.Posicao)
+  {
+    GerarMenu(DadosMenuControlePid);
   }
 }
 
