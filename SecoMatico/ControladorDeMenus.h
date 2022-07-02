@@ -5,7 +5,7 @@
 struct LinhasDisplay linhasDisplay;
 int NumeroMenuSelecionado;
 
-void SaveDadosMenu()
+void SalvarDadosMenu()
 {
   if(NumeroMenuSelecionado == DadosMenuSupervisao.Index)
   {
@@ -21,6 +21,8 @@ void SaveDadosMenu()
   {
     DadosMenuControlePid = DadosMenuSelecionado;
   }
+
+  SalvarEeeprom();
 }
 
 void ModificarValor()
@@ -30,13 +32,13 @@ void ModificarValor()
   if(BotaoDireitaPressionado)
   {
     DadosMenuSelecionado.Valores[posicaoValor] += DadosMenuSelecionado.DadosIncremento[posicaoValor];
-    SaveDadosMenu();
+    SalvarDadosMenu();
   }
 
   if(BotaoEsquerdaPressionado)
   {
     DadosMenuSelecionado.Valores[posicaoValor] -= DadosMenuSelecionado.DadosIncremento[posicaoValor];
-    SaveDadosMenu();
+    SalvarDadosMenu();
   }
 }
 

@@ -24,7 +24,8 @@
                 "/home/marcelo/Arduino/libraries/TimerInterrupt/**",
                 "/home/marcelo/Arduino/libraries/DallasTemperature/**",
                 "/home/marcelo/Arduino/libraries/OneWire/**",
-                "/home/marcelo/Arduino/libraries/PID/**"
+                "/home/marcelo/Arduino/libraries/PID/**",
+                "/home/marcelo/Documentos/arduino-1.8.19/hardware/arduino/avr/libraries/EEPROM/**"
             ],
             "forcedInclude": [
                 "/home/marcelo/Documentos/arduino-1.8.9/hardware/arduino/avr/cores/arduino/Arduino.h",
@@ -55,6 +56,7 @@
                 "/home/marcelo/Arduino/libraries/OneWire",
                 "/home/marcelo/Arduino/libraries/DallasTemperature",
                 "/home/marcelo/Arduino/libraries/PCD8544",
+                "/home/marcelo/Documentos/arduino-1.8.19/hardware/arduino/avr/libraries/EEPROM/src",
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/tools/avr/lib/gcc/avr/7.3.0/include",
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/tools/avr/lib/gcc/avr/7.3.0/include-fixed",
                 "/home/marcelo/Documentos/arduino-1.8.19/hardware/tools/avr/avr/include"
