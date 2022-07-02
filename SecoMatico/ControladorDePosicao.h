@@ -31,7 +31,7 @@ void AjustarAlteracaoDeAngulo(float alteracaoDeAngulo)
     AlteracaoDeAngulo = alteracaoDeAngulo;
 }
 
-bool MotorPosicao(int pinoMotor)
+bool MotorPosicao(byte pinoMotor)
 {
     return digitalRead(pinoMotor) == MOTOR_POSICAO;
 }

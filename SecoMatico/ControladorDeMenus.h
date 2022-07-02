@@ -1,5 +1,6 @@
 #include "ControladorDeDisplay.h"
 #include "DadosDeMenus.h"
+#include "ControladorDeBotoes.h"
 
 struct LinhasDisplay linhasDisplay;
 int menuSelecionado = 0;
@@ -59,10 +60,10 @@ void GerarMenu(struct DadosMenu dados)
   
 }
 
-
 void MostrarMenu()
 {
-    MostrarDisplay(linhasDisplay);
+  MostrarDisplay(linhasDisplay);
+  IndentificarBotoesPressinados();
 }
 
 void MostrarMenuInicial()
@@ -77,4 +78,5 @@ void InicializarControleDeMenu()
     IniciarDisplay();
     InicializarDadosDeMenus();
     MostrarMenuInicial();
+    InitializarControladorDeBotoes();
 }
