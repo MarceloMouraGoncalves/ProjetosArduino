@@ -2,8 +2,28 @@
 #include "DadosDeMenus.h"
 #include "ControladorDeBotoes.h"
 
+const int MENUS_TOTAL = 2;
+
 struct LinhasDisplay linhasDisplay;
-int menuSelecionado = 0;
+int MenuSelecionado = 0;
+
+void SelecionarMenu()
+{
+  if(BotaoDireitaPressionado)
+  {
+    MenuSelecionado++;    
+  }
+
+  if(BotaoEsquerdaPressionado)
+  {
+    MenuSelecionado--;
+  }
+
+  if(MenuSelecionado >= MENUS_TOTAL || MenuSelecionado < 0)
+  {
+    MenuSelecionado = 0;
+  }
+}
 
 String  SelecionarItem(String item, float valor, bool selecionado, bool modificar, TipoDeMenu tipoDeMenu)
 {
@@ -62,21 +82,33 @@ void GerarMenu(struct DadosMenu dados)
 
 void MostrarMenu()
 {
-  MostrarDisplay(linhasDisplay);
-  IndentificarBotoesPressinados();
+  MostrarDisplay(linhasDisplay);  
 }
 
-void MostrarMenuInicial()
+void GerarMenuSelecionado()
 {
+  if(MenuSelecionado == DadosMenuSupervisao.Posicao)
+  {
     GerarMenu(DadosMenuSupervisao);
-    MostrarMenu();
+  }
+
+  if(MenuSelecionado == DadosMenuTemperatura.Posicao)
+  {
+    GerarMenu(DadosMenuTemperatura);
+  }
 }
 
+void AtualizarMenu()
+{
+  IndentificarBotoesPressinados();
+  SelecionarMenu();
+  GerarMenuSelecionado();
+  MostrarMenu();
+}
 
 void InicializarControleDeMenu()
 {
     IniciarDisplay();
     InicializarDadosDeMenus();
-    MostrarMenuInicial();
     InitializarControladorDeBotoes();
 }

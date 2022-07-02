@@ -4,7 +4,7 @@
 
 #define BOTAO_PRESSIONADO HIGH
 
-const int LOOP_BOTAO_PRESSIONADO = 2;
+const int LOOP_BOTAO_PRESSIONADO = 1;
 
 bool BotaoEsquerdaPressionado, BotaoEntradaPressionado, BotaoDireitaPressionado;
 int BotaoLoop;

@@ -45,7 +45,7 @@ void InicializarDadosMenuTemperatura()
     DadosMenuTemperatura.Posicao = 1;
     
     strcpy(DadosMenuTemperatura.NomeDados[0], "");
-    strcpy(DadosMenuTemperatura.NomeDados[1], "SetP. C  ");    
+    strcpy(DadosMenuTemperatura.NomeDados[1], "SetP. C");    
     strcpy(DadosMenuTemperatura.NomeDados[2], "");
     strcpy(DadosMenuTemperatura.NomeDados[3], "");
     

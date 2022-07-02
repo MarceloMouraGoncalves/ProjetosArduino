@@ -40,7 +40,7 @@ void loop()
   tempoAnteriorMs = tempoAtualMs;
   Tempo += tempoAtualMs;
 
-  MostrarMenuInicial();
+  AtualizarMenu();
 
   switch (DefinirEstadoAtual(Temperatura, InicializacoDeMotoresCompleta()))
   {
