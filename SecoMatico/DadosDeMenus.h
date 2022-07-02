@@ -1,3 +1,10 @@
+enum TipoDeMenu
+{
+  MenuDeSupervisao,
+  MenuDeConfiguracao,
+  MenuDeSelecao
+};
+
 
 struct DadosMenu
 {
@@ -5,9 +12,10 @@ struct DadosMenu
   byte Posicao;
   bool Selecionado;
   bool Modificar;
-  bool MenuDeConfiguracao;
+  TipoDeMenu Tipo;
   char NomeDados[4][14];
   bool Ocultar[4];
+  bool Mensagem[4];
   float Valores[4];
   float DadosIncremento[4];
   float DadosMaximo[4];
@@ -21,13 +29,14 @@ void InicializarDadosMenuSupervisao()
     strcpy(DadosMenuSupervisao.Titulo, "  Supervisor");
     DadosMenuSupervisao.Posicao = 0;
     
-    strcpy(DadosMenuSupervisao.NomeDados[0], "Temp.C");    
-    strcpy(DadosMenuSupervisao.NomeDados[1], "SetP.C");
-    strcpy(DadosMenuSupervisao.NomeDados[2], "Ctrle");
-    strcpy(DadosMenuSupervisao.NomeDados[3], "");
-    DadosMenuSupervisao.Ocultar[3] = true;
+    strcpy(DadosMenuSupervisao.NomeDados[0], "Inicializacao");
+    DadosMenuSupervisao.Mensagem[0] = true;
 
-    DadosMenuSupervisao.MenuDeConfiguracao = true;
+    strcpy(DadosMenuSupervisao.NomeDados[1], "Temp. C  ");    
+    strcpy(DadosMenuSupervisao.NomeDados[2], "SetP. C  ");
+    strcpy(DadosMenuSupervisao.NomeDados[3], "Controle ");
+    
+    DadosMenuSupervisao.Tipo = MenuDeSupervisao;
 }
 
 void InicializarDadosDeMenus()

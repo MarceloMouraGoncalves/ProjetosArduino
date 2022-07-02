@@ -74,12 +74,16 @@ void EmergenciaTemperaturaMax()
 {
   ForcarPosicaoMax();
   AtualizarTemperatura();
+
+  strcpy(DadosMenuSupervisao.NomeDados[0], "Emergencia!");
 }
 
 void InicializarPosicao()
 {
   InicializarPosicaoMin();
   AtualizarTemperatura();
+  
+  strcpy(DadosMenuSupervisao.NomeDados[0], "Inicializacao");
   AtualizarDados();
 }
 
@@ -93,6 +97,8 @@ void ControleDePosicao()
   TemperaturaDesejada = 40;
 
   ControlarPosicao();
+
+  strcpy(DadosMenuSupervisao.NomeDados[0], "Ctrl. Posicao");
   AtualizarDados();
 }
 
@@ -105,12 +111,13 @@ void ControleDeTemparatura()
   ControleDeAngulo = CalcularControle(Temperatura, TemperaturaDesejada);
   AjustarAlteracaoDeAngulo(ControleDeAngulo);
 
+  strcpy(DadosMenuSupervisao.NomeDados[0], "Ctrl. Temp.");
   AtualizarDados();   
 }
 
 void AtualizarDados()
 {
-  DadosMenuSupervisao.Valores[0] = Temperatura;
-  DadosMenuSupervisao.Valores[1] = TemperaturaDesejada;
-  DadosMenuSupervisao.Valores[2] = AlteracaoDeAngulo;
+  DadosMenuSupervisao.Valores[1] = Temperatura;
+  DadosMenuSupervisao.Valores[2] = TemperaturaDesejada;
+  DadosMenuSupervisao.Valores[3] = AlteracaoDeAngulo;
 }

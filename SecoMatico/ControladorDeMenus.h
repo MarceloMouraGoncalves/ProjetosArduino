@@ -4,14 +4,14 @@
 struct LinhasDisplay linhasDisplay;
 int menuSelecionado = 0;
 
-String  SelecionarItem(String item, float valor, bool selecionado, bool modificar, bool menuDeConfiguracao)
+String  SelecionarItem(String item, float valor, bool selecionado, bool modificar, TipoDeMenu tipoDeMenu)
 {
   if (item == "")
     return "";
 
-  if (!menuDeConfiguracao)
+  if (tipoDeMenu == MenuDeSupervisao)
   {
-    return "  " + item + " " + valor;
+    return item + " " + valor;
   }
 
   if (selecionado)
@@ -24,7 +24,7 @@ String  SelecionarItem(String item, float valor, bool selecionado, bool modifica
 
 void GerarMenu(struct DadosMenu dados)
 {
-  if(dados.MenuDeConfiguracao)
+  if(dados.Tipo != MenuDeSelecao)
   {
     strcpy(linhasDisplay.Linhas[0], dados.Titulo);
     strcpy(linhasDisplay.Linhas[1], "--------------");
@@ -40,9 +40,9 @@ void GerarMenu(struct DadosMenu dados)
         }
 
         tempString = SelecionarItem(dados.NomeDados[i], dados.Valores[i],
-            dados.Posicao == i + 1, dados.Modificar, dados.MenuDeConfiguracao);
+            dados.Posicao == i + 1, dados.Modificar, dados.Tipo);
   
-        tempString.toCharArray(tempChar, 14);
+        tempString.toCharArray(tempChar, 15);
   
         strcpy(linhasDisplay.Linhas[i + 2], tempChar);
     }
