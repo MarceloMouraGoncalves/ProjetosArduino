@@ -27,7 +27,7 @@ void MostrarDisplay(struct LinhasDisplay linhasDisplay)
 }
 
 
-void IniciarDisplay()
+void InicializarDisplay()
 {
   Lcd.begin(84, 48);
 }

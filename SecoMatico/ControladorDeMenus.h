@@ -2,35 +2,95 @@
 #include "DadosDeMenus.h"
 #include "ControladorDeBotoes.h"
 
-const int MENUS_TOTAL = 3;
-
 struct LinhasDisplay linhasDisplay;
-int MenuSelecionado = 0;
+int NumeroMenuSelecionado;
 
-void SelecionarMenu()
+void ModificarValor()
 {
+  
+}
+
+void SelecionarValor()
+{
+  byte posicaoValor = DadosMenuSelecionado.Posicao - 1;
+
+  if(BotaoEntradaPressionado)
+  {
+    DadosMenuSelecionado.ModificarDados[posicaoValor] = !DadosMenuSelecionado.ModificarDados[posicaoValor];
+  }
+
+  if(DadosMenuSelecionado.ModificarDados[posicaoValor])
+  {
+    ModificarValor();
+    return;
+  }
+
   if(BotaoDireitaPressionado)
   {
-    MenuSelecionado++;    
+    DadosMenuSelecionado.Posicao++;    
   }
 
   if(BotaoEsquerdaPressionado)
   {
-    MenuSelecionado--;
+    DadosMenuSelecionado.Posicao--;
   }
 
-  if(MenuSelecionado >= MENUS_TOTAL)
+  if(DadosMenuSelecionado.Posicao < 0)
   {
-    MenuSelecionado = 0;
+    DadosMenuSelecionado.Posicao = 0;
+    DadosMenuSelecionado.Selecionado = false;
   }
 
-  if(MenuSelecionado < 0)
+  if(DadosMenuSelecionado.Posicao > DadosMenuSelecionado.NumeroPosicoes)
   {
-    MenuSelecionado = MENUS_TOTAL - 1;
+    DadosMenuSelecionado.Posicao = 0;
+    DadosMenuSelecionado.Selecionado = false;
   }
 }
 
-String  SelecionarItem(String item, float valor, bool selecionado, bool modificar, TipoDeMenu tipoDeMenu)
+void SelecionarNumeroMenu()
+{
+  if(BotaoEntradaPressionado)
+  {
+    if(DadosMenuSelecionado.Tipo == MenuDeConfiguracao)
+    {
+      DadosMenuSelecionado.Selecionado = true;
+      
+      if(DadosMenuSelecionado.Posicao == 0)
+      {
+        DadosMenuSelecionado.Posicao = 1;
+      }
+    }    
+  }
+  
+  if(DadosMenuSelecionado.Selecionado)
+  {
+    SelecionarValor();
+    return;
+  }
+
+  if(BotaoDireitaPressionado)
+  {
+    NumeroMenuSelecionado++;    
+  }
+
+  if(BotaoEsquerdaPressionado)
+  {
+    NumeroMenuSelecionado--;
+  }
+
+  if(NumeroMenuSelecionado >= MENUS_TOTAL)
+  {
+    NumeroMenuSelecionado = 0;
+  }
+
+  if(NumeroMenuSelecionado < 0)
+  {
+    NumeroMenuSelecionado = MENUS_TOTAL - 1;
+  }  
+}
+
+String SelecionarItem(String item, float valor, bool selecionado, bool modificar, TipoDeMenu tipoDeMenu)
 {
   if (item == "")
     return "";
@@ -38,6 +98,11 @@ String  SelecionarItem(String item, float valor, bool selecionado, bool modifica
   if (tipoDeMenu == MenuDeSupervisao)
   {
     return item + " " + valor;
+  }
+
+  if (modificar)
+  {
+    return ">>" + item + " " + valor;
   }
 
   if (selecionado)
@@ -48,25 +113,26 @@ String  SelecionarItem(String item, float valor, bool selecionado, bool modifica
   return "  " + item + " " + valor;
 }
 
-void GerarMenu(struct DadosMenu dados)
+void GerarMenu()
 {
-  if(dados.Tipo != MenuDeSelecao)
+  if(DadosMenuSelecionado.Tipo != MenuDeSelecao)
   {
-    strcpy(linhasDisplay.Linhas[0], dados.Titulo);
+    strcpy(linhasDisplay.Linhas[0], DadosMenuSelecionado.Titulo);
+
     strcpy(linhasDisplay.Linhas[1], "--------------");
-  
+
     String tempString;
     char tempChar[14];
   
     for (int i = 0; i < 4; i++)
     {
-        if(dados.Ocultar[i])
+        if(DadosMenuSelecionado.Ocultar[i])
         {
             break;
         }
 
-        tempString = SelecionarItem(dados.NomeDados[i], dados.Valores[i],
-            dados.Posicao == i + 1, dados.Modificar, dados.Tipo);
+        tempString = SelecionarItem(DadosMenuSelecionado.NomeDados[i], DadosMenuSelecionado.Valores[i],
+            DadosMenuSelecionado.Posicao == i + 1, DadosMenuSelecionado.ModificarDados[i], DadosMenuSelecionado.Tipo);
   
         tempString.toCharArray(tempChar, 15);
   
@@ -76,12 +142,12 @@ void GerarMenu(struct DadosMenu dados)
     return;
   }
 
-  strcpy(linhasDisplay.Linhas[0], dados.Titulo);
+  strcpy(linhasDisplay.Linhas[0], DadosMenuSelecionado.Titulo);
   strcpy(linhasDisplay.Linhas[1], "--------------");
-  strcpy(linhasDisplay.Linhas[2], dados.NomeDados[0]);
-  strcpy(linhasDisplay.Linhas[3], dados.NomeDados[1]);
-  strcpy(linhasDisplay.Linhas[4], dados.NomeDados[2]);
-  strcpy(linhasDisplay.Linhas[5], dados.NomeDados[3]);
+  strcpy(linhasDisplay.Linhas[2], DadosMenuSelecionado.NomeDados[0]);
+  strcpy(linhasDisplay.Linhas[3], DadosMenuSelecionado.NomeDados[1]);
+  strcpy(linhasDisplay.Linhas[4], DadosMenuSelecionado.NomeDados[2]);
+  strcpy(linhasDisplay.Linhas[5], DadosMenuSelecionado.NomeDados[3]);
   
 }
 
@@ -90,35 +156,46 @@ void MostrarMenu()
   MostrarDisplay(linhasDisplay);  
 }
 
-void GerarMenuSelecionado()
+void SelecionarNovoDadosMenu(DadosMenu dados)
 {
-  if(MenuSelecionado == DadosMenuSupervisao.Posicao)
+  if(DadosMenuSelecionado.Index != dados.Index)
   {
-    GerarMenu(DadosMenuSupervisao);
+    DadosMenuSelecionado = dados;
+  }  
+    
+  GerarMenu();
+}
+
+void SelecionarDadosMenu()
+{
+  if(NumeroMenuSelecionado == DadosMenuSupervisao.Index)
+  {
+    SelecionarNovoDadosMenu(DadosMenuSupervisao);
   }
 
-  if(MenuSelecionado == DadosMenuTemperatura.Posicao)
+  if(NumeroMenuSelecionado == DadosMenuTemperatura.Index)
   {
-    GerarMenu(DadosMenuTemperatura);
+    SelecionarNovoDadosMenu(DadosMenuTemperatura);
   }
 
-  if(MenuSelecionado == DadosMenuControlePid.Posicao)
+  if(NumeroMenuSelecionado == DadosMenuControlePid.Index)
   {
-    GerarMenu(DadosMenuControlePid);
+    SelecionarNovoDadosMenu(DadosMenuControlePid);
   }
 }
 
 void AtualizarMenu()
 {
   IndentificarBotoesPressinados();
-  SelecionarMenu();
-  GerarMenuSelecionado();
+  SelecionarNumeroMenu();
+  SelecionarDadosMenu();
   MostrarMenu();
 }
 
 void InicializarControleDeMenu()
-{
-    IniciarDisplay();
-    InicializarDadosDeMenus();
-    InitializarControladorDeBotoes();
+{  
+  InicializarDisplay();
+  InicializarDadosDeMenus();
+  InitializarControladorDeBotoes();
+  DadosMenuSelecionado = DadosMenuSupervisao;
 }
