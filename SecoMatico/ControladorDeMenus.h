@@ -5,9 +5,39 @@
 struct LinhasDisplay linhasDisplay;
 int NumeroMenuSelecionado;
 
+void SaveDadosMenu()
+{
+  if(NumeroMenuSelecionado == DadosMenuSupervisao.Index)
+  {
+    DadosMenuSupervisao = DadosMenuSelecionado;
+  }
+
+  if(NumeroMenuSelecionado == DadosMenuTemperatura.Index)
+  {
+    DadosMenuTemperatura = DadosMenuSelecionado;
+  }
+
+  if(NumeroMenuSelecionado == DadosMenuControlePid.Index)
+  {
+    DadosMenuControlePid = DadosMenuSelecionado;
+  }
+}
+
 void ModificarValor()
 {
-  
+  byte posicaoValor = DadosMenuSelecionado.Posicao - 1;
+
+  if(BotaoDireitaPressionado)
+  {
+    DadosMenuSelecionado.Valores[posicaoValor] += DadosMenuSelecionado.DadosIncremento[posicaoValor];
+    SaveDadosMenu();
+  }
+
+  if(BotaoEsquerdaPressionado)
+  {
+    DadosMenuSelecionado.Valores[posicaoValor] -= DadosMenuSelecionado.DadosIncremento[posicaoValor];
+    SaveDadosMenu();
+  }
 }
 
 void SelecionarValor()
@@ -55,7 +85,7 @@ void SelecionarNumeroMenu()
     if(DadosMenuSelecionado.Tipo == MenuDeConfiguracao)
     {
       DadosMenuSelecionado.Selecionado = true;
-      
+
       if(DadosMenuSelecionado.Posicao == 0)
       {
         DadosMenuSelecionado.Posicao = 1;

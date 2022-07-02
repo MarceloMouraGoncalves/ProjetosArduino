@@ -55,6 +55,8 @@ void InicializarDadosMenuTemperatura()
   strcpy(DadosMenuTemperatura.NomeDados[2], "");
   strcpy(DadosMenuTemperatura.NomeDados[3], "");
     
+  DadosMenuTemperatura.DadosIncremento[0] = 0.5;
+
   DadosMenuTemperatura.NumeroPosicoes = 1;
   DadosMenuTemperatura.Tipo = MenuDeConfiguracao;
 }
@@ -69,6 +71,11 @@ void InicializarDadosMenuControlePid()
   strcpy(DadosMenuControlePid.NomeDados[2], "Cons. D");
   strcpy(DadosMenuControlePid.NomeDados[3], "T.M. C");
   
+  DadosMenuControlePid.DadosIncremento[0] = 0.1;
+  DadosMenuControlePid.DadosIncremento[1] = 0.1;
+  DadosMenuControlePid.DadosIncremento[2] = 0.1;
+  DadosMenuControlePid.DadosIncremento[3] = 0.5;
+
   DadosMenuControlePid.Tipo = MenuDeConfiguracao;
   DadosMenuControlePid.NumeroPosicoes = 4;
 }
