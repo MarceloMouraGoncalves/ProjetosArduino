@@ -1,12 +1,29 @@
 #include "ConstantesDeControle.h"
 
+#define PINO_CONTROLE_AUTO 20
+
 int contadorLoopControlePosicao = 0;
 int contadorLoopControleTemperatura = 0;
+
+bool ControleManual()
+{
+  return digitalRead(PINO_CONTROLE_AUTO) == LOW;
+}
+
+void InicializarControladorDeEstados()
+{
+  pinMode(PINO_CONTROLE_AUTO, INPUT);
+}
 
 int DefinirEstadoAtual(float temperatura, bool inicializacaoCompleta)
 {
   contadorLoopControlePosicao++;
   contadorLoopControleTemperatura++;
+
+  if(ControleManual())
+  {
+    return EstadoControleManual;
+  }
 
   if(temperatura >= TEMPERATURA_MAX)
   {

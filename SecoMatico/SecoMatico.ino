@@ -21,6 +21,7 @@ void setup()
 {  
   Serial.begin(115200);
 
+  InicializarControladorDeEstados();
   InicializarLeituraDeTemperatura();
   InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO);
   InicializarControleDeTemparatura(LOOP_INTERVALO_MS * LOOP_CONTROLE_TEMPERATURA);
@@ -44,6 +45,10 @@ void loop()
 
   switch (DefinirEstadoAtual(Temperatura, InicializacoDeMotoresCompleta()))
   {
+    case EstadoControleManual:
+      IniciarControleManual();
+      break;
+
     case EstadoEmergenciaDeTemperatura:
       EmergenciaTemperaturaMax();
       break;
@@ -68,6 +73,12 @@ void loop()
 void AtualizarTemperatura()
 {
   Temperatura = LerTemperaturaC();
+}
+
+void IniciarControleManual()
+{
+  PararRotacao();
+  strcpy(DadosMenuSupervisao.NomeDados[0], " Ctrl Manual!");
 }
 
 void EmergenciaTemperaturaMax()

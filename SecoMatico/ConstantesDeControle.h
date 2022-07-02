@@ -11,7 +11,8 @@ enum ESTADOS_DE_CONTROLE
     EstadoInicializacaoDePosicao,
     EstadoControleDePosicao,
     EstadoControleDeTemparatura,
-    EstadoEmergenciaDeTemperatura    
+    EstadoEmergenciaDeTemperatura,
+    EstadoControleManual    
 };
 
   
