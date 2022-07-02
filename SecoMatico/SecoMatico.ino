@@ -78,7 +78,7 @@ void AtualizarTemperatura()
 void IniciarControleManual()
 {
   PararRotacao();
-  strcpy(DadosMenuSupervisao.NomeDados[0], " Ctrl Manual!");
+  strcpy(DadosMenuSupervisao.NomeDados[0], "Ctrl. Manual!");
 }
 
 void EmergenciaTemperaturaMax()

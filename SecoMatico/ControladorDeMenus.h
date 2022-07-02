@@ -19,9 +19,14 @@ void SelecionarMenu()
     MenuSelecionado--;
   }
 
-  if(MenuSelecionado >= MENUS_TOTAL || MenuSelecionado < 0)
+  if(MenuSelecionado >= MENUS_TOTAL)
   {
     MenuSelecionado = 0;
+  }
+
+  if(MenuSelecionado < 0)
+  {
+    MenuSelecionado = MENUS_TOTAL - 1;
   }
 }
 
