@@ -42,10 +42,14 @@ void loop()
 
   MostrarMenuInicial();
 
-  switch (DefinirEstadoAtual(Temperatura))
+  switch (DefinirEstadoAtual(Temperatura, InicializacoDeMotoresCompleta()))
   {
     case EstadoEmergenciaDeTemperatura:
       EmergenciaTemperaturaMax();
+      break;
+
+    case EstadoInicializacaoDePosicao:
+      InicializarPosicao();
       break;
 
     case EstadoControleDePosicao:
@@ -61,17 +65,29 @@ void loop()
   }
 }
 
+void AtualizarTemperatura()
+{
+  Temperatura = LerTemperaturaC();
+}
+
 void EmergenciaTemperaturaMax()
 {
   ForcarPosicaoMax();
-  Temperatura = LerTemperaturaC();
+  AtualizarTemperatura();
+}
+
+void InicializarPosicao()
+{
+  InicializarPosicaoMin();
+  AtualizarTemperatura();
+  AtualizarDados();
 }
 
 void ControleDePosicao()
 {
   Serial.print("Aquisicao Temperatura = ");
 
-  Temperatura = LerTemperaturaC();
+  AtualizarTemperatura();
   Serial.println(Temperatura);
 
   TemperaturaDesejada = 40;
@@ -84,7 +100,7 @@ void ControleDeTemparatura()
 {
   Serial.println("Controle"); 
 
-  Temperatura = LerTemperaturaC();
+  AtualizarTemperatura();
   
   ControleDeAngulo = CalcularControle(Temperatura, TemperaturaDesejada);
   AjustarAlteracaoDeAngulo(ControleDeAngulo);

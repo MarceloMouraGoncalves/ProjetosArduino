@@ -229,14 +229,13 @@ void ForcarPosicaoMax()
     Motor2ForcarPosicaoMax();
 }
 
+bool InicializacoDeMotoresCompleta()
+{
+    return Motor1Inicializacao && Motor2Inicializacao;
+}
+
 void ControlarPosicao()
 {
-    if(!Motor1Inicializacao || !Motor2Inicializacao)
-    {
-        InicializarPosicaoMin();
-        return;
-    }
-
     if(AlteracaoDeAngulo > ANGULO_MIN_RAD)
     {
         RotacaoPositiva();

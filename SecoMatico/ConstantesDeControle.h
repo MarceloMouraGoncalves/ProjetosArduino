@@ -8,6 +8,7 @@ const float TEMPERATURA_MAX = 65;
 enum ESTADOS_DE_CONTROLE 
 {
     EstadoIndefinido,
+    EstadoInicializacaoDePosicao,
     EstadoControleDePosicao,
     EstadoControleDeTemparatura,
     EstadoEmergenciaDeTemperatura    
