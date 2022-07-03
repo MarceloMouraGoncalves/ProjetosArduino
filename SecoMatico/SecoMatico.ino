@@ -3,6 +3,7 @@
 #include "ControladorDePosicao.h"
 #include "ControladorDeTemperatura.h"
 #include "ControladorDeMenus.h"
+#include "ControladorDeIndicadores.h"
 
 /*
   Controle de Tempratura com Fluxo De Ar em um Secador de Café a Lenha
@@ -28,6 +29,7 @@ void setup()
   Serial.begin(115200);
 
   InicializarControleDeMenu();
+  InicializarControladorDeIndicadores();
   InicializarLeituraDeTemperatura();
   InicializarControladorDeEstados();  
   InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO, &Motor1Inicializacao, &Motor2Inicializacao);
@@ -90,12 +92,14 @@ void AtualizarTemperatura()
 void IniciarControleManual()
 {
   PararRotacao();
+  AtivarIndicadorEmergencia();
   strcpy(DadosMenuSupervisao.NomeDados[0], "Ctrl. Manual!");
 }
 
 void EmergenciaTemperaturaMax()
 {
   ForcarPosicaoMax();
+  AtivarIndicadorEmergencia();
   AtualizarTemperatura();
 
   strcpy(DadosMenuSupervisao.NomeDados[0], "Emergencia!");
@@ -104,29 +108,36 @@ void EmergenciaTemperaturaMax()
 void InicializarPosicao()
 {
   InicializarPosicaoMin();
+  AtivarIndicadorAlarm();
   AtualizarTemperatura();
   
   strcpy(DadosMenuSupervisao.NomeDados[0], "Inicializacao");
   AtualizarDados();
 }
 
-void ControleDePosicao()
+void ImprimirStatus()
 {
-  AtualizarTemperatura();
-
   Serial.print(ContadorLoopControleTemperatura);
   Serial.print(" Aquisicao Temperatura = ");  
   Serial.println(Temperatura);
+}
+
+void ControleDePosicao()
+{
+  AtivarIndicadorBom();
+  AtualizarTemperatura();
 
   ControlarPosicao();
 
   strcpy(DadosMenuSupervisao.NomeDados[0], "Ctrl. Posicao");
   AtualizarDados();
+
+  ImprimirStatus();
 }
 
 void ControleDeTemparatura()
 {
-  Serial.println("Controle"); 
+  AtivarIndicadorBom(); 
 
   AtualizarTemperatura();
   

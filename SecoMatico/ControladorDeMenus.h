@@ -87,7 +87,7 @@ void SelecionarNumeroMenu()
       {
         DadosMenuSelecionado.Posicao = 1;
       }
-    }    
+    }        
   }
   
   if(DadosMenuSelecionado.Selecionado)

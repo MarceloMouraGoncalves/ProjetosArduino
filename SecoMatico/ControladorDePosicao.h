@@ -12,7 +12,7 @@
 #define MOTOR_PARADO HIGH
 #define MOTOR_POSICAO LOW 
 
-const long TEMPO_TOTAL_MS = 48000;
+const long TEMPO_TOTAL_MS = 30000;
 const float ANGULO_TOTAL_RAD = PI / 2;
 const float ANGULO_MIN_RAD = ANGULO_TOTAL_RAD / 10;
 
@@ -238,16 +238,11 @@ bool InicializacoDeMotoresCompleta()
 
 void ControlarPosicao()
 {
-    Serial.print("AlteracaoDeAngulo = ");
-    Serial.println(*AlteracaoDeAngulo);
-
     if(*AlteracaoDeAngulo > ANGULO_MIN_RAD)
     {
         RotacaoPositiva();
 
         *AlteracaoDeAngulo -= AnguloDeAcionamento;
-
-        ImprimirAngulo();
 
         return;
     }
@@ -257,8 +252,6 @@ void ControlarPosicao()
         RotacaoNegativa();
 
         *AlteracaoDeAngulo += AnguloDeAcionamento;
-
-        ImprimirAngulo();
 
         return;
     }
