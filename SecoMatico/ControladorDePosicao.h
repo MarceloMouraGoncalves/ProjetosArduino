@@ -219,8 +219,11 @@ void ImprimirAngulo()
     Serial.println(*AlteracaoDeAngulo);
 }
 
-void InicializarPosicaoMin()
+void InicializarPosicaoMin(bool *motor1Inicializacao, bool *motor2Inicializacao)
 {
+    ptrMotor1Inicializacao = motor1Inicializacao;
+    ptrMotor2Inicializacao = motor2Inicializacao;
+
     Motor1InicializarPosicaoMin();
     Motor2InicializarPosicaoMin();
 }

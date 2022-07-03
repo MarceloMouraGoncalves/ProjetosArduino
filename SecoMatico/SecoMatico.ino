@@ -107,7 +107,7 @@ void EmergenciaTemperaturaMax()
 
 void InicializarPosicao()
 {
-  InicializarPosicaoMin();
+  InicializarPosicaoMin(&Motor1Inicializacao, &Motor2Inicializacao);
   AtivarIndicadorAlarm();
   AtualizarTemperatura();
   
