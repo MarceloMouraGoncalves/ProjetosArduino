@@ -16,16 +16,19 @@ float TemperaturaDesejada = 0;
 float ControleDeAngulo = 0;
 unsigned long int Tempo = 0;
 
+unsigned long int ContadorLoopControlePosicao = 0;
+unsigned long int ContadorLoopControleTemperatura = 0;
+
 // the setup function runs once when you press reset or power the board
 void setup() 
 {  
   Serial.begin(115200);
 
-  InicializarControladorDeEstados();
-  InicializarLeituraDeTemperatura();
-  InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO);
-  InicializarControleDeTemparatura(LOOP_INTERVALO_MS * LOOP_CONTROLE_TEMPERATURA);
   InicializarControleDeMenu();
+  InicializarLeituraDeTemperatura();
+  InicializarControladorDeEstados();  
+  InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO);
+  InicializarControleDeTemparatura(LOOP_INTERVALO_MS * LOOP_CONTROLE_TEMPERATURA, DadosMenuControlePid.Valores[0], DadosMenuControlePid.Valores[1], DadosMenuControlePid.Valores[2]);
 }
 
 // the loop function runs over and over again forever
@@ -43,7 +46,10 @@ void loop()
 
   AtualizarMenu();
 
-  switch (DefinirEstadoAtual(Temperatura, InicializacoDeMotoresCompleta()))
+  ContadorLoopControlePosicao++;
+  ContadorLoopControleTemperatura++;
+
+  switch (DefinirEstadoAtual(ContadorLoopControlePosicao, ContadorLoopControleTemperatura, Temperatura, DadosMenuControlePid.Valores[3], InicializacoDeMotoresCompleta()))
   {
     case EstadoControleManual:
       IniciarControleManual();
@@ -58,10 +64,12 @@ void loop()
       break;
 
     case EstadoControleDePosicao:
+      ContadorLoopControlePosicao = 0;
       ControleDePosicao();
       break;
     
     case EstadoControleDeTemparatura:
+      ContadorLoopControleTemperatura = 0;      
       ControleDeTemparatura();
       break;
 
@@ -73,6 +81,7 @@ void loop()
 void AtualizarTemperatura()
 {
   Temperatura = LerTemperaturaC();
+  TemperaturaDesejada = DadosMenuTemperatura.Valores[0];
 }
 
 void IniciarControleManual()
@@ -100,12 +109,11 @@ void InicializarPosicao()
 
 void ControleDePosicao()
 {
-  Serial.print("Aquisicao Temperatura = ");
-
   AtualizarTemperatura();
-  Serial.println(Temperatura);
 
-  TemperaturaDesejada = 40;
+  Serial.print(ContadorLoopControleTemperatura);
+  Serial.print(" Aquisicao Temperatura = ");  
+  Serial.println(Temperatura);
 
   ControlarPosicao();
 

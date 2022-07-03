@@ -7,11 +7,6 @@ int NumeroMenuSelecionado;
 
 void SalvarDadosMenu()
 {
-  if(NumeroMenuSelecionado == DadosMenuSupervisao.Index)
-  {
-    DadosMenuSupervisao = DadosMenuSelecionado;
-  }
-
   if(NumeroMenuSelecionado == DadosMenuTemperatura.Index)
   {
     DadosMenuTemperatura = DadosMenuSelecionado;
@@ -190,7 +185,7 @@ void MostrarMenu()
 
 void SelecionarNovoDadosMenu(DadosMenu dados)
 {
-  if(DadosMenuSelecionado.Index != dados.Index)
+  if(DadosMenuSelecionado.Index != dados.Index || DadosMenuSelecionado.Index == 0)
   {
     DadosMenuSelecionado = dados;
   }  
@@ -226,8 +221,8 @@ void AtualizarMenu()
 
 void InicializarControleDeMenu()
 {  
-  InicializarDisplay();
   InicializarDadosDeMenus();
+  InicializarDisplay();  
   InitializarControladorDeBotoes();
   DadosMenuSelecionado = DadosMenuSupervisao;
 }

@@ -2,9 +2,6 @@
 
 #define PINO_CONTROLE_AUTO 20
 
-int contadorLoopControlePosicao = 0;
-int contadorLoopControleTemperatura = 0;
-
 bool ControleManual()
 {
   return digitalRead(PINO_CONTROLE_AUTO) == LOW;
@@ -12,20 +9,17 @@ bool ControleManual()
 
 void InicializarControladorDeEstados()
 {
-  pinMode(PINO_CONTROLE_AUTO, INPUT);
+  pinMode(PINO_CONTROLE_AUTO, INPUT);;
 }
 
-int DefinirEstadoAtual(float temperatura, bool inicializacaoCompleta)
-{
-  contadorLoopControlePosicao++;
-  contadorLoopControleTemperatura++;
-
+int DefinirEstadoAtual(unsigned long int contadorLoopControlePosicao, unsigned long int contadorLoopControleTemperatura, float temperatura, float temperaturaMax, bool inicializacaoCompleta)
+{   
   if(ControleManual())
   {
     return EstadoControleManual;
   }
 
-  if(temperatura >= TEMPERATURA_MAX)
+  if(temperatura >= temperaturaMax)
   {
     return EstadoEmergenciaDeTemperatura;
   }
@@ -34,17 +28,15 @@ int DefinirEstadoAtual(float temperatura, bool inicializacaoCompleta)
   {
     return EstadoInicializacaoDePosicao;
   }
+  
+  if(contadorLoopControleTemperatura >= LOOP_CONTROLE_TEMPERATURA)
+  {
+    return EstadoControleDeTemparatura;
+  }
 
   if(contadorLoopControlePosicao >= LOOP_CONTROLE_POSICAO)
   {
-    contadorLoopControlePosicao = 0;
     return EstadoControleDePosicao;
-  }
-
-  if(contadorLoopControleTemperatura >= LOOP_CONTROLE_TEMPERATURA)
-  {
-    contadorLoopControleTemperatura = 0;
-    return EstadoControleDeTemparatura;
   }
 
   return EstadoIndefinido;

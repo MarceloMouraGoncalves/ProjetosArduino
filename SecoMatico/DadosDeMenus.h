@@ -67,7 +67,7 @@ void InicializarDadosMenuSupervisao()
 
   strcpy(DadosMenuSupervisao.NomeDados[1], "Temp. C  ");    
   strcpy(DadosMenuSupervisao.NomeDados[2], "SetP. C  ");
-  strcpy(DadosMenuSupervisao.NomeDados[3], "Controle ");
+  strcpy(DadosMenuSupervisao.NomeDados[3], "Controle");
     
   DadosMenuSupervisao.Tipo = MenuDeSupervisao;
 }
