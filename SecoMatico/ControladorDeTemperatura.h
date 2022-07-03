@@ -1,13 +1,13 @@
 const float ERRO_ACUMULADO_TEMPERATURA_MAX = 50;
 const float CONTROLE_POSICAO_MAX = 1;
 
-float IntervaloDeTempo = 1;
+static float IntervaloDeTempo = 1;
 
-float ErroDeTemperatura = 0;
-float ErroAnteriorDeTemperatura = 0;
-float ErroAcumuladoDeTemperatura = 0;
+static float ErroDeTemperatura = 0;
+static float ErroAnteriorDeTemperatura = 0;
+static float ErroAcumuladoDeTemperatura = 0;
 
-float ConstanteP, ConstanteI, ConstanteD;
+static float ConstanteP, ConstanteI, ConstanteD;
 
 void InicializarControleDeTemparatura(long intervaloDeExecucaoMs, float constanteP, float constanteI, float constanteD)
 {

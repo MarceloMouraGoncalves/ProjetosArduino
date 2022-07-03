@@ -3,7 +3,7 @@
 #include "ControladorDeBotoes.h"
 
 struct LinhasDisplay linhasDisplay;
-int NumeroMenuSelecionado;
+static int NumeroMenuSelecionado;
 
 void SalvarDadosMenu()
 {

@@ -34,7 +34,7 @@ const byte CONSTANTE_D_ENDERECO = 8;
 const byte CONSTANTE_TEMP_MAX = 12;
 const byte CONSTANTE_TEMP_SETPOINT = 16;
 
-struct DadosMenu DadosMenuSupervisao, DadosMenuTemperatura, DadosMenuControlePid, DadosMenuSelecionado;
+static struct DadosMenu DadosMenuSupervisao, DadosMenuTemperatura, DadosMenuControlePid, DadosMenuSelecionado;
 
 void SalvarEeeprom()
 {

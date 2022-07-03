@@ -19,6 +19,9 @@ unsigned long int Tempo = 0;
 unsigned long int ContadorLoopControlePosicao = 0;
 unsigned long int ContadorLoopControleTemperatura = 0;
 
+bool Motor1Inicializacao;
+bool Motor2Inicializacao;
+
 // the setup function runs once when you press reset or power the board
 void setup() 
 {  
@@ -27,7 +30,7 @@ void setup()
   InicializarControleDeMenu();
   InicializarLeituraDeTemperatura();
   InicializarControladorDeEstados();  
-  InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO);
+  InicializarControleDePosicao(LOOP_INTERVALO_MS * LOOP_CONTROLE_POSICAO, &Motor1Inicializacao, &Motor2Inicializacao);
   InicializarControleDeTemparatura(LOOP_INTERVALO_MS * LOOP_CONTROLE_TEMPERATURA, DadosMenuControlePid.Valores[0], DadosMenuControlePid.Valores[1], DadosMenuControlePid.Valores[2]);
 }
 
@@ -128,7 +131,7 @@ void ControleDeTemparatura()
   AtualizarTemperatura();
   
   ControleDeAngulo = CalcularControle(Temperatura, TemperaturaDesejada);
-  AjustarAlteracaoDeAngulo(ControleDeAngulo);
+  AjustarAlteracaoDeAngulo(&ControleDeAngulo);
 
   strcpy(DadosMenuSupervisao.NomeDados[0], "Ctrl. Temp.");
   AtualizarDados();   
@@ -138,5 +141,5 @@ void AtualizarDados()
 {
   DadosMenuSupervisao.Valores[1] = Temperatura;
   DadosMenuSupervisao.Valores[2] = TemperaturaDesejada;
-  DadosMenuSupervisao.Valores[3] = AlteracaoDeAngulo;
+  DadosMenuSupervisao.Valores[3] = ControleDeAngulo;
 }
